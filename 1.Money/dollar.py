@@ -1,9 +1,11 @@
 from typing import TypeVar
 from money import Money
+from const.moneyKind import MoneyKind
+from moneyFactory import MoneyFactory
 
 T = TypeVar('T', bound='Dollar')
 
 class Dollar(Money):
 
-    def times(self: T, multiplier: int) -> T:
-        return Dollar(self._amount * multiplier)
+    def __init__(self: T, amount: int, currency: str):
+        super().__init__(amount, currency)

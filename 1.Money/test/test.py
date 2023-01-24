@@ -1,6 +1,7 @@
 import unittest
-from dollar import Dollar
-from franc import Franc
+from moneyFactory import MoneyFactory
+from const.moneyKind import MoneyKind
+from money import Money
 
 class Test(unittest.TestCase):
 
@@ -19,18 +20,25 @@ class Test(unittest.TestCase):
         print('teardownclass')
 
     def testMultiplication(self):
-        five = Dollar(5)
-        self.assertTrue(Dollar(10) == five.times(2))
-        self.assertTrue(Dollar(15) == five.times(3))
+        five = MoneyFactory.createMoney(MoneyKind.DOLLAR, 5)
+        self.assertTrue(MoneyFactory.createMoney(MoneyKind.DOLLAR, 10) == five.times(2))
+        self.assertTrue(MoneyFactory.createMoney(MoneyKind.DOLLAR, 15) == five.times(3))
 
     def testEquality(self):
-        self.assertTrue(Dollar(5) == Dollar(5))
-        self.assertFalse(Dollar(5) == Dollar(6))
-        self.assertTrue(Franc(5) == Franc(5))
-        self.assertFalse(Franc(5) == Franc(6))
-        self.assertFalse(Dollar(5) == Franc(5))
+        self.assertTrue(MoneyFactory.createMoney(MoneyKind.DOLLAR, 5) == MoneyFactory.createMoney(MoneyKind.DOLLAR, 5))
+        self.assertFalse(MoneyFactory.createMoney(MoneyKind.DOLLAR, 5) == MoneyFactory.createMoney(MoneyKind.DOLLAR, 6))
+        self.assertTrue(MoneyFactory.createMoney(MoneyKind.FRANC, 5) == MoneyFactory.createMoney(MoneyKind.FRANC, 5))
+        self.assertFalse(MoneyFactory.createMoney(MoneyKind.FRANC, 5) == MoneyFactory.createMoney(MoneyKind.FRANC, 6))
+        self.assertFalse(MoneyFactory.createMoney(MoneyKind.DOLLAR, 5) == MoneyFactory.createMoney(MoneyKind.FRANC, 5))
 
     def testFrancMultiplication(self):
-        five = Franc(5)
-        self.assertTrue(Franc(10) == five.times(2))
-        self.assertTrue(Franc(15) == five.times(3))
+        five = MoneyFactory.createMoney(MoneyKind.FRANC, 5)
+        self.assertTrue(MoneyFactory.createMoney(MoneyKind.FRANC, 10) == five.times(2))
+        self.assertTrue(MoneyFactory.createMoney(MoneyKind.FRANC, 15) == five.times(3))
+
+    def testCurrency(self):
+        self.assertEqual("USD", MoneyFactory.createMoney(MoneyKind.DOLLAR, 1).currency())
+        self.assertEqual("CHF", MoneyFactory.createMoney(MoneyKind.FRANC, 1).currency())
+
+    def testDifferentClassEquality(self):
+        self.assertTrue(Money(10, "CHF") == MoneyFactory.createMoney(MoneyKind.FRANC, 10))
