@@ -27,8 +27,6 @@ class Test(unittest.TestCase):
     def testEquality(self):
         self.assertTrue(MoneyFactory.createMoney(MoneyKind.DOLLAR, 5) == MoneyFactory.createMoney(MoneyKind.DOLLAR, 5))
         self.assertFalse(MoneyFactory.createMoney(MoneyKind.DOLLAR, 5) == MoneyFactory.createMoney(MoneyKind.DOLLAR, 6))
-        self.assertTrue(MoneyFactory.createMoney(MoneyKind.FRANC, 5) == MoneyFactory.createMoney(MoneyKind.FRANC, 5))
-        self.assertFalse(MoneyFactory.createMoney(MoneyKind.FRANC, 5) == MoneyFactory.createMoney(MoneyKind.FRANC, 6))
         self.assertFalse(MoneyFactory.createMoney(MoneyKind.DOLLAR, 5) == MoneyFactory.createMoney(MoneyKind.FRANC, 5))
 
     def testFrancMultiplication(self):
@@ -39,6 +37,3 @@ class Test(unittest.TestCase):
     def testCurrency(self):
         self.assertEqual("USD", MoneyFactory.createMoney(MoneyKind.DOLLAR, 1).currency())
         self.assertEqual("CHF", MoneyFactory.createMoney(MoneyKind.FRANC, 1).currency())
-
-    def testDifferentClassEquality(self):
-        self.assertTrue(Money(10, "CHF") == MoneyFactory.createMoney(MoneyKind.FRANC, 10))

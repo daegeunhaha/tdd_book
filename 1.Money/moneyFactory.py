@@ -7,9 +7,7 @@ class MoneyFactory():
     
     @classmethod
     def createMoney(cls, moneyKind: MoneyKind, amount: int) -> Type[Money]:
-        from dollar import Dollar
-        from franc import Franc
         if moneyKind == MoneyKind.DOLLAR:
-            return Dollar(amount, "USD")
+            return Money(amount, "USD")
         elif moneyKind == MoneyKind.FRANC:
-            return Franc(amount, "CHF")
+            return Money(amount, "CHF")
