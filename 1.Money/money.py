@@ -1,19 +1,22 @@
-from typing import TypeVar, Type
+from typing import TypeVar
 from abc import *
 
 T = TypeVar('T', bound='Money')
 
 class Money():
     
-    def __init__(self: Type[T], amount: int, currency: str):
+    def __init__(self: T, amount: int, currency: str):
         self._amount = amount
         self._currency = currency
 
-    def __eq__(self: Type[T], other: Type[T]) -> bool:
-        return (self.currency() == other.currency()) & (self._amount == other._amount)
+    def __eq__(self: T, other: T) -> bool:
+        return (self._currency == other.currency()) & (self._amount == other._amount)
 
-    def times(self: Type[T], multiplier: int) -> Type[T]:
-        return Money(self._amount * multiplier, self.currency())
+    def times(self: T, multiplier: int) -> T:
+        return Money(self._amount * multiplier, self._currency)
 
-    def currency(self: Type[T]) -> str:
+    def currency(self: T) -> str:
         return self._currency
+
+    def plus(self: T, other: T) -> T:
+        return Money(self._amount + other._amount, self._currency)

@@ -37,3 +37,7 @@ class Test(unittest.TestCase):
     def testCurrency(self):
         self.assertEqual("USD", MoneyFactory.createMoney(MoneyKind.DOLLAR, 1).currency())
         self.assertEqual("CHF", MoneyFactory.createMoney(MoneyKind.FRANC, 1).currency())
+
+    def testSimpleAddition(self):
+        sum = MoneyFactory.createMoney(MoneyKind.DOLLAR, 5).plus(MoneyFactory.createMoney(MoneyKind.DOLLAR, 5))
+        self.assertEqual(MoneyFactory.createMoney(MoneyKind.DOLLAR, 10), sum)
