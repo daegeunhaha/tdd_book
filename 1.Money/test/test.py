@@ -1,7 +1,7 @@
 import unittest
 from moneyFactory import MoneyFactory
 from const.moneyKind import MoneyKind
-from money import Money
+from bank import Bank
 
 class Test(unittest.TestCase):
 
@@ -39,5 +39,7 @@ class Test(unittest.TestCase):
         self.assertEqual("CHF", MoneyFactory.createMoney(MoneyKind.FRANC, 1).currency())
 
     def testSimpleAddition(self):
+        bank = Bank()
         sum = MoneyFactory.createMoney(MoneyKind.DOLLAR, 5).plus(MoneyFactory.createMoney(MoneyKind.DOLLAR, 5))
+        reduced = bank.reduce(sum)
         self.assertEqual(MoneyFactory.createMoney(MoneyKind.DOLLAR, 10), sum)
