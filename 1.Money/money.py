@@ -1,7 +1,4 @@
-from typing import TypeVar
 from expression import Expression
-
-T = TypeVar('T', bound='Money')
 
 class Money():
     
@@ -21,5 +18,4 @@ class Money():
         return self._currency
 
     def plus(self, other: 'Money') -> Expression:
-        # todo: change to sum
-        return Money(self._amount + other._amount, self._currency)
+        return Expression('+', self, other)

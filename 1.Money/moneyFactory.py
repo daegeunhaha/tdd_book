@@ -1,5 +1,4 @@
 from const.moneyKind import MoneyKind
-from typing import Type
 from money import Money
 
 
