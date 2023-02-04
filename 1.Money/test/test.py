@@ -44,7 +44,7 @@ class Test(unittest.TestCase):
     def testSimpleAddition(self) -> None:
         bank = Bank()
         sum : Expression = MoneyFactory.createMoney(MoneyKind.DOLLAR, 5).plus(MoneyFactory.createMoney(MoneyKind.DOLLAR, 5))
-        reduced : Money = bank.reduce(sum)
+        reduced : Money = bank.reduce(sum, MoneyKind.DOLLAR)
         self.assertEqual(MoneyFactory.createMoney(MoneyKind.DOLLAR, 10), reduced)
 
     def testPlusReturnsSum(self) -> None:
@@ -52,3 +52,14 @@ class Test(unittest.TestCase):
         sum : Sum = five.plus(five)
         self.assertEqual(five, sum.augend)
         self.assertEqual(five, sum.addend)
+
+    def testReduceSum(self) -> None:
+        sum : Sum = Sum(MoneyFactory.createMoney(MoneyKind.DOLLAR, 3), MoneyFactory.createMoney(MoneyKind.DOLLAR, 4))
+        bank : Bank = Bank()
+        result : Money = bank.reduce(sum, MoneyKind.DOLLAR)
+        self.assertEqual(MoneyFactory.createMoney(MoneyKind.DOLLAR, 7), result)
+
+    def testReduceMoney(self) -> None:
+        bank : Bank = Bank()
+        result : Money = bank.reduce(MoneyFactory.createMoney(MoneyKind.DOLLAR, 1), MoneyKind.DOLLAR)
+        self.assertEqual(MoneyFactory.createMoney(MoneyKind.DOLLAR, 1), result)

@@ -1,5 +1,6 @@
 from expression import Expression
-
+from sum import Sum
+from const.moneyKind import MoneyKind
 
 class Money(Expression):
     
@@ -18,5 +19,8 @@ class Money(Expression):
     def currency(self) -> str:
         return self._currency
 
-    def plus(self, addend: 'Money') -> Expression:
-        return Money(self._amount + addend._amount, self._currency)
+    def plus(self, addend: 'Money') -> Sum:
+        return Sum(self, addend)
+
+    def reduce(self, to: MoneyKind) -> 'Money':
+        return self
