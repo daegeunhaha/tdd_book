@@ -4,6 +4,7 @@ from const.moneyKind import MoneyKind
 from bank import Bank
 from expression import Expression
 from money import Money
+from sum import Sum
 
 class Test(unittest.TestCase):
 
@@ -48,6 +49,6 @@ class Test(unittest.TestCase):
 
     def testPlusReturnsSum(self) -> None:
         five : Money = MoneyFactory.createMoney(MoneyKind.DOLLAR, 5)
-        sum : Expression = five.plus(five)
+        sum : Sum = five.plus(five)
         self.assertEqual(five, sum.augend)
         self.assertEqual(five, sum.addend)

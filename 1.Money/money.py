@@ -1,6 +1,7 @@
 from expression import Expression
 
-class Money():
+
+class Money(Expression):
     
     def __init__(self, amount: int, currency: str):
         self._amount = amount
@@ -17,5 +18,5 @@ class Money():
     def currency(self) -> str:
         return self._currency
 
-    def plus(self, other: 'Money') -> Expression:
-        return Expression('+', self, other)
+    def plus(self, addend: 'Money') -> Expression:
+        return Money(self._amount + addend._amount, self._currency)
