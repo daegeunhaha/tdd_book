@@ -14,3 +14,7 @@ class Expression(abc.ABC):
     @abc.abstractmethod
     def reduce(self, bank: 'Bank', to: 'Currency') -> 'Money':
         pass
+
+    @abc.abstractmethod
+    def plus(self, addend: 'Expression') -> 'Expression':
+        pass

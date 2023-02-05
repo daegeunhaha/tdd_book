@@ -74,3 +74,11 @@ class Test(unittest.TestCase):
 
     def testIdentityRate(self) -> None:
         self.assertEqual(1, Bank().rate(Currency.USD, Currency.USD))
+
+    def testMixedAddition(self) -> None:
+        fiveBucks: Expression = Money(5, Currency.USD)
+        tenFrancs: Expression = Money(10, Currency.CHF)
+        bank: Bank = Bank()
+        bank.addRate(Currency.CHF, Currency.USD, 2)
+        result: Money = bank.reduce(fiveBucks.plus(tenFrancs), Currency.USD)
+        self.assertEqual(Money(10, Currency.USD), result)

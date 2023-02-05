@@ -8,11 +8,14 @@ if TYPE_CHECKING:
 
 class Sum(Expression):
     
-    def __init__(self, augend: 'Money', addend: 'Money') -> None:
+    def __init__(self, augend: 'Expression', addend: 'Expression') -> None:
         super().__init__()
         self.augend = augend
         self.addend = addend
 
     def reduce(self, bank: 'Bank', to: Currency) -> 'Money':
-        amount : int = self.augend._amount + self.addend._amount
+        amount : int = self.augend.reduce(bank, to)._amount + self.addend.reduce(bank, to)._amount
         return Money(amount, to)
+    
+    def plus(self, addend: 'Expression') -> 'Expression':
+        return None
