@@ -18,3 +18,7 @@ class Expression(abc.ABC):
     @abc.abstractmethod
     def plus(self, addend: 'Expression') -> 'Expression':
         pass
+
+    @abc.abstractmethod
+    def times(self, multiplier: int) -> 'Expression':
+        pass

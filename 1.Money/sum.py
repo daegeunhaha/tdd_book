@@ -18,4 +18,7 @@ class Sum(Expression):
         return Money(amount, to)
     
     def plus(self, addend: 'Expression') -> 'Expression':
-        return None
+        return Sum(self, addend)
+    
+    def times(self, multiplier: int) -> 'Expression':
+        return Sum(self.augend.times(multiplier), self.addend.times(multiplier))
