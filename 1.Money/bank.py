@@ -1,7 +1,7 @@
 from expression import Expression
 from money import Money
-from moneyFactory import MoneyFactory
-from const.moneyKind import MoneyKind
+from const.currency import Currency
+from pair import Pair
 from typing import TYPE_CHECKING, cast
 
 if TYPE_CHECKING:
@@ -15,7 +15,15 @@ if TYPE_CHECKING:
 class Bank():
 
     def __init__(self) -> None:
-        pass
+        self._rates: dict[Pair, int] = {}
     
-    def reduce(self, source: Expression, to: MoneyKind) -> Money:
-        return source.reduce(to)
+    def reduce(self, source: Expression, to: Currency) -> Money:
+        return source.reduce(self, to)
+
+    def addRate(self, source: Currency, target: Currency, rate: int) -> None:
+        self._rates[Pair(source, target)] = rate
+
+    def rate(self, source: Currency, target: Currency) -> int:
+        if source == target:
+            return 1
+        return self._rates[Pair(source, target)]

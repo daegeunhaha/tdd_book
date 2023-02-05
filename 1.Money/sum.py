@@ -1,10 +1,10 @@
 from expression import Expression
 from typing import TYPE_CHECKING
-from const.moneyKind import MoneyKind
-from moneyFactory import MoneyFactory
+from const.currency import Currency
+from money import Money
 
 if TYPE_CHECKING:
-    from money import Money
+    from bank import Bank
 
 class Sum(Expression):
     
@@ -13,6 +13,6 @@ class Sum(Expression):
         self.augend = augend
         self.addend = addend
 
-    def reduce(self, to: MoneyKind) -> 'Money':
+    def reduce(self, bank: 'Bank', to: Currency) -> 'Money':
         amount : int = self.augend._amount + self.addend._amount
-        return MoneyFactory.createMoney(to, amount)
+        return Money(amount, to)

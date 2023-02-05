@@ -3,7 +3,8 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from money import Money
-    from const.moneyKind import MoneyKind
+    from const.currency import Currency
+    from bank import Bank
 
 class Expression(abc.ABC):
 
@@ -11,5 +12,5 @@ class Expression(abc.ABC):
         super().__init__()
 
     @abc.abstractmethod
-    def reduce(self, to: 'MoneyKind') -> 'Money':
+    def reduce(self, bank: 'Bank', to: 'Currency') -> 'Money':
         pass
