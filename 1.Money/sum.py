@@ -14,8 +14,5 @@ class Sum(Expression):
         self.addend = addend
 
     def reduce(self, bank: 'Bank', to: Currency) -> 'Money':
-        amount : int = self.augend.reduce(bank, to)._amount + self.addend.reduce(bank, to)._amount
+        amount : int = self.augend.reduce(bank, to).amount() + self.addend.reduce(bank, to).amount()
         return Money(amount, to)
-    
-    def times(self, multiplier: int) -> 'Expression':
-        return Sum(self.augend.times(multiplier), self.addend.times(multiplier))

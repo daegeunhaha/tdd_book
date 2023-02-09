@@ -22,9 +22,10 @@ class Test(unittest.TestCase):
         print('teardownclass')
 
     def testMultiplication(self) -> None:
+        bank = Bank()
         five = Money(5, Currency.USD)
-        self.assertTrue(Money(10, Currency.USD) == five.times(2))
-        self.assertTrue(Money(15, Currency.USD) == five.times(3))
+        self.assertTrue(Money(10, Currency.USD) == five.times(2).reduce(bank, Currency.USD))
+        self.assertTrue(Money(15, Currency.USD) == five.times(3).reduce(bank, Currency.USD))
 
     def testEquality(self) -> None:
         self.assertTrue(Money(5, Currency.USD) == Money(5, Currency.USD))
@@ -32,9 +33,10 @@ class Test(unittest.TestCase):
         self.assertFalse(Money(5, Currency.USD) == Money(5, Currency.CHF))
 
     def testFrancMultiplication(self) -> None:
+        bank = Bank()
         five = Money(5, Currency.CHF)
-        self.assertTrue(Money(10, Currency.CHF) == five.times(2))
-        self.assertTrue(Money(15, Currency.CHF) == five.times(3))
+        self.assertTrue(Money(10, Currency.CHF) == five.times(2).reduce(bank, Currency.CHF))
+        self.assertTrue(Money(15, Currency.CHF) == five.times(3).reduce(bank, Currency.CHF))
 
     def testCurrency(self) -> None:
         self.assertEqual("USD", Money(1, Currency.USD).currency())
@@ -93,6 +95,6 @@ class Test(unittest.TestCase):
         tenFrancs: Expression = Money(10, Currency.CHF)
         bank: Bank = Bank()
         bank.addRate(Currency.CHF, Currency.USD, 2)
-        sum: Expression = Sum(fiveBucks, tenFrancs).times(2)
-        result: Money = sum.reduce(bank, Currency.USD)
+        mult: Expression = Sum(fiveBucks, tenFrancs).times(2)
+        result: Money = mult.reduce(bank, Currency.USD)
         self.assertEqual(Money(20, Currency.USD), result)

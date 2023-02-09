@@ -18,7 +18,7 @@ class Expression(abc.ABC):
     def plus(self, addend: 'Expression') -> 'Expression':
         from sum import Sum
         return Sum(self, addend)
-
-    @abc.abstractmethod
+    
     def times(self, multiplier: int) -> 'Expression':
-        pass
+        from multiply import Multiply
+        return Multiply(self, multiplier)

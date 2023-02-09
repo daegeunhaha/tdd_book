@@ -17,11 +17,11 @@ class Money(Expression):
             return NotImplemented
         return (self._currency == other._currency) & (self._amount == other._amount)
 
-    def times(self, multiplier: int) -> 'Expression':
-        return Money(self._amount * multiplier, self._currency)
-
     def currency(self) -> str:
         return self._currency.name
+    
+    def amount(self) -> int:
+        return self._amount
 
     def reduce(self, bank: 'Bank', to: 'Currency') -> 'Money':
         rate: float = bank.rate(self._currency, to)
