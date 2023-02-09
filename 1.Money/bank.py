@@ -16,9 +16,6 @@ class Bank():
 
     def __init__(self) -> None:
         self._rates: dict[Pair, int] = {}
-    
-    def reduce(self, source: Expression, to: Currency) -> Money:
-        return source.reduce(self, to)
 
     def addRate(self, source: Currency, target: Currency, rate: int) -> None:
         self._rates[Pair(source, target)] = rate

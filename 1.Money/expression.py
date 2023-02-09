@@ -15,9 +15,9 @@ class Expression(abc.ABC):
     def reduce(self, bank: 'Bank', to: 'Currency') -> 'Money':
         pass
 
-    @abc.abstractmethod
     def plus(self, addend: 'Expression') -> 'Expression':
-        pass
+        from sum import Sum
+        return Sum(self, addend)
 
     @abc.abstractmethod
     def times(self, multiplier: int) -> 'Expression':

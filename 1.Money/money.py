@@ -23,10 +23,6 @@ class Money(Expression):
     def currency(self) -> str:
         return self._currency.name
 
-    def plus(self, addend: 'Expression') -> 'Sum':
-        from sum import Sum
-        return Sum(self, addend)
-
     def reduce(self, bank: 'Bank', to: 'Currency') -> 'Money':
         rate: float = bank.rate(self._currency, to)
         return Money(int(self._amount / rate), to)

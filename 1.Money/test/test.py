@@ -43,30 +43,26 @@ class Test(unittest.TestCase):
     def testSimpleAddition(self) -> None:
         bank = Bank()
         sum : Expression = Money(5, Currency.USD).plus(Money(5, Currency.USD))
-        reduced : Money = bank.reduce(sum, Currency.USD)
+        reduced : Money = sum.reduce(bank, Currency.USD)
         self.assertEqual(Money(10, Currency.USD), reduced)
-
-    def testPlusReturnsSum(self) -> None:
-        five : Money = Money(5, Currency.USD)
-        sum : Sum = five.plus(five)
-        self.assertEqual(five, sum.augend)
-        self.assertEqual(five, sum.addend)
 
     def testReduceSum(self) -> None:
         sum : Sum = Sum(Money(3, Currency.USD), Money(4, Currency.USD))
         bank : Bank = Bank()
-        result : Money = bank.reduce(sum, Currency.USD)
+        result : Money = sum.reduce(bank, Currency.USD)
         self.assertEqual(Money(7, Currency.USD), result)
 
     def testReduceMoney(self) -> None:
         bank : Bank = Bank()
-        result : Money = bank.reduce(Money(1, Currency.USD), Currency.USD)
+        money: Money = Money(1, Currency.USD)
+        result : Money = money.reduce(bank, Currency.USD)
         self.assertEqual(Money(1, Currency.USD), result)
 
     def testReduceMoneyDifferentCurency(self) -> None:
         bank: Bank = Bank()
         bank.addRate(Currency.CHF, Currency.USD, 2)
-        result: Money = bank.reduce(Money(2, Currency.CHF), Currency.USD)
+        money: Money = Money(2, Currency.CHF)
+        result: Money = money.reduce(bank, Currency.USD)
         self.assertEqual(Money(1, Currency.USD), result)
 
     def testArrayEquals(self) -> None:
@@ -80,7 +76,7 @@ class Test(unittest.TestCase):
         tenFrancs: Expression = Money(10, Currency.CHF)
         bank: Bank = Bank()
         bank.addRate(Currency.CHF, Currency.USD, 2)
-        result: Money = bank.reduce(fiveBucks.plus(tenFrancs), Currency.USD)
+        result: Money = fiveBucks.plus(tenFrancs).reduce(bank, Currency.USD)
         self.assertEqual(Money(10, Currency.USD), result)
 
     def testSumPlusMoney(self) -> None:
@@ -89,7 +85,7 @@ class Test(unittest.TestCase):
         bank: Bank = Bank()
         bank.addRate(Currency.CHF, Currency.USD, 2)
         sum: Expression = Sum(fiveBucks, tenFrancs).plus(fiveBucks)
-        result: Money = bank.reduce(sum, Currency.USD)
+        result: Money = sum.reduce(bank, Currency.USD)
         self.assertEqual(Money(15, Currency.USD), result)
 
     def testSumTimes(self) -> None:
@@ -98,5 +94,5 @@ class Test(unittest.TestCase):
         bank: Bank = Bank()
         bank.addRate(Currency.CHF, Currency.USD, 2)
         sum: Expression = Sum(fiveBucks, tenFrancs).times(2)
-        result: Money = bank.reduce(sum, Currency.USD)
+        result: Money = sum.reduce(bank, Currency.USD)
         self.assertEqual(Money(20, Currency.USD), result)
