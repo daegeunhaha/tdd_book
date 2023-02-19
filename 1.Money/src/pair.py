@@ -1,7 +1,7 @@
 from const.currency import Currency
 
-class Pair():
-    
+
+class Pair:
     def __init__(self, source: Currency, target: Currency):
         self._source = source
         self._target = target

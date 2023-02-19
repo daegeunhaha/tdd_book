@@ -2,3 +2,4 @@ pytest==7.2.1
 pylint==2.15.10
 mypy==0.991
 black==23.1.0
+pyright==1.1.294

@@ -1,5 +1,6 @@
-from pair import Pair
 from typing import TYPE_CHECKING
+
+from pair import Pair
 
 if TYPE_CHECKING:
     from const.currency import Currency
@@ -9,15 +10,15 @@ if TYPE_CHECKING:
 # https://stackoverflow.com/questions/47896283/how-to-have-inherited-type-hints-in-python
 # 일단 self, cls에는 type hint를 넣지 말자;
 
-class Bank():
 
+class Bank:
     def __init__(self) -> None:
         self._rates: dict[Pair, int] = {}
 
-    def addRate(self, source: 'Currency', target: 'Currency', rate: int) -> None:
+    def add_rate(self, source: "Currency", target: "Currency", rate: int) -> None:
         self._rates[Pair(source, target)] = rate
 
-    def rate(self, source: 'Currency', target: 'Currency') -> int:
+    def rate(self, source: "Currency", target: "Currency") -> int:
         if source == target:
             return 1
         return self._rates[Pair(source, target)]

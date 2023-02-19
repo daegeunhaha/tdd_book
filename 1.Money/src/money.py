@@ -1,14 +1,16 @@
-from expression import Expression
-from const.currency import Currency
 from typing import TYPE_CHECKING
+
+from const.currency import Currency
+from expression import Expression
 
 if TYPE_CHECKING:
     from bank import Bank
     from sum import Sum
 
+
 class Money(Expression):
-    
-    def __init__(self, amount: int, currency: 'Currency'):
+    def __init__(self, amount: int, currency: "Currency"):
+        super().__init__()
         self._amount = amount
         self._currency = currency
 
@@ -19,10 +21,10 @@ class Money(Expression):
 
     def currency(self) -> str:
         return self._currency.name
-    
+
     def amount(self) -> int:
         return self._amount
 
-    def reduce(self, bank: 'Bank', to: 'Currency') -> 'Money':
-        rate: float = bank.rate(self._currency, to)
-        return Money(int(self._amount / rate), to)
+    def reduce(self, bank: "Bank", currency: "Currency") -> "Money":
+        rate: float = bank.rate(self._currency, currency)
+        return Money(int(self._amount / rate), currency)
