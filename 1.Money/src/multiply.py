@@ -15,7 +15,5 @@ class Multiply(Expression):
         self.multiplier = multiplier
 
     def reduce(self, bank: "Bank", currency: "Currency") -> "Money":
-        amount: int = (
-            self.multiplicand.reduce(bank, currency).amount() * self.multiplier
-        )
+        amount: int = self.multiplicand.reduce(bank, currency).amount() * self.multiplier
         return Money(amount, currency)

@@ -1,9 +1,6 @@
 import abc
 from typing import TYPE_CHECKING
 
-from multiply import Multiply
-from sum import Sum
-
 if TYPE_CHECKING:
     from bank import Bank
     from const.currency import Currency
@@ -19,7 +16,11 @@ class Expression(abc.ABC):
         pass
 
     def plus(self, addend: "Expression") -> "Expression":
+        from sum import Sum
+
         return Sum(self, addend)
 
     def times(self, multiplier: int) -> "Expression":
+        from multiply import Multiply
+
         return Multiply(self, multiplier)

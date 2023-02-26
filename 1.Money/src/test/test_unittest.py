@@ -1,10 +1,10 @@
 import unittest
 
-from src.bank import Bank
-from src.const.currency import Currency
-from src.expression import Expression
-from src.money import Money
-from src.sum import Sum
+from bank import Bank
+from const.currency import Currency
+from expression import Expression
+from money import Money
+from sum import Sum
 
 
 class Test(unittest.TestCase):
@@ -25,12 +25,8 @@ class Test(unittest.TestCase):
     def testMultiplication(self) -> None:
         bank = Bank()
         five = Money(5, Currency.USD)
-        self.assertTrue(
-            Money(10, Currency.USD) == five.times(2).reduce(bank, Currency.USD)
-        )
-        self.assertTrue(
-            Money(15, Currency.USD) == five.times(3).reduce(bank, Currency.USD)
-        )
+        self.assertTrue(Money(10, Currency.USD) == five.times(2).reduce(bank, Currency.USD))
+        self.assertTrue(Money(15, Currency.USD) == five.times(3).reduce(bank, Currency.USD))
 
     def testEquality(self) -> None:
         self.assertTrue(Money(5, Currency.USD) == Money(5, Currency.USD))
@@ -40,12 +36,8 @@ class Test(unittest.TestCase):
     def testFrancMultiplication(self) -> None:
         bank = Bank()
         five = Money(5, Currency.CHF)
-        self.assertTrue(
-            Money(10, Currency.CHF) == five.times(2).reduce(bank, Currency.CHF)
-        )
-        self.assertTrue(
-            Money(15, Currency.CHF) == five.times(3).reduce(bank, Currency.CHF)
-        )
+        self.assertTrue(Money(10, Currency.CHF) == five.times(2).reduce(bank, Currency.CHF))
+        self.assertTrue(Money(15, Currency.CHF) == five.times(3).reduce(bank, Currency.CHF))
 
     def testCurrency(self) -> None:
         self.assertEqual("USD", Money(1, Currency.USD).currency())
