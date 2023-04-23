@@ -2,9 +2,7 @@ import unittest
 
 from bank import Bank
 from const.currency import Currency
-from expression import Expression
-from money import Money
-from sum import Sum
+from expression import Expression, Money, Sum
 
 
 class Test(unittest.TestCase):
